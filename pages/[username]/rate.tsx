@@ -1,5 +1,6 @@
 import Layout from "@/components/layout";
 import Slider from "@/components/slider";
+import { statsList } from "@/types/userInfo";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -10,16 +11,7 @@ export default function UserRating() {
   const { username } = router.query;
 
   const title = `Rate ${username}`;
-  const statsList = [
-    "Looks",
-    "Creativity",
-    "Humor",
-    "Mental Health",
-    "Empathy",
-    "Patience",
-    "Social Skills",
-    "Memory",
-  ];
+
   const stats = statsList.map((statName) => {
     const [value, setValue] = useState<number>(0);
 

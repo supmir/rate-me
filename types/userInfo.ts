@@ -1,3 +1,14 @@
+export const statsList = [
+    "Looks",
+    "Creativity",
+    "Humor",
+    "Mental Health",
+    "Empathy",
+    "Patience",
+    "Social Skills",
+    "Memory",
+];
+
 export interface Rating {
     statName: string,
     self: number,
