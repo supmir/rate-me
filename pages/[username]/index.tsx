@@ -25,12 +25,16 @@ export default function UserProfile() {
 
   return (
     <Layout>
-      <div className="text-3xl font-bold text-center">{username}'s profile</div>
+      <div className="text-3xl font-bold text-center">
+        {username}&#39;s profile
+      </div>
       {!userInfo.ratings || userInfo.ratings.length === 0 ? (
         <div>User is unrated</div>
       ) : (
-        userInfo.ratings.map(({ statName, self, average }) => {
-          return <Bar statName={statName} self={self} average={average} />;
+        userInfo.ratings.map(({ statName, self, average }, i) => {
+          return (
+            <Bar statName={statName} self={self} average={average} key={i} />
+          );
         })
       )}
       <div className="w-full flex my-4">

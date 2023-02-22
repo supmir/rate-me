@@ -12,17 +12,25 @@ export default function UserRating() {
 
   const title = `Rate ${username}`;
 
-  const stats = statsList.map((statName) => {
-    const [value, setValue] = useState<number>(0);
+  const [values, setValues] = useState<{ [key: string]: number }>({});
+  function updateValue(statName: string, new_value: number) {
+    setValues({ ...values, [statName]: new_value });
+  }
 
-    return { statName: statName, value: value, setValue: setValue };
+  const stats = statsList.map((statName) => {
+    return {
+      statName: statName,
+      setValue: (new_value: number) => {
+        updateValue(statName, new_value);
+      },
+    };
   });
 
   function rate() {
     const payload = {
       targetUser: username?.slice(1),
-      rating: stats.map(({ statName, value }) => {
-        return { statName: statName, value: value };
+      rating: stats.map(({ statName }) => {
+        return { statName: statName, value: values[statName] };
       }),
     };
     fetch("/api/rate", {
@@ -46,11 +54,11 @@ export default function UserRating() {
 
           <h1 className="text-3xl text-center">Rate {username}</h1>
           <div className="grid gap-y-3">
-            {stats.map(({ statName, value, setValue }, i) => {
+            {stats.map(({ statName, setValue }, i) => {
               return (
                 <Slider
                   statName={statName}
-                  value={value}
+                  values={values}
                   setValue={setValue}
                   key={i}
                 />

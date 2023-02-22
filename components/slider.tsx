@@ -3,18 +3,18 @@ import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
 export default function Slider(props: {
   statName: string;
-  value: number;
-  setValue: Dispatch<SetStateAction<number>>;
+  values: { [key: string]: number };
+  setValue: (new_value: number) => void;
 }) {
-  const { statName, value, setValue } = props;
-  const values = Array.from(Array(10).keys());
+  const { statName, values, setValue } = props;
+  const max_array = Array.from(Array(10).keys());
 
   function updateValue(new_value: number) {
     setValue(Math.min(Math.max(new_value, 0), 10));
   }
 
   function stepValue(amount: number) {
-    updateValue(value + amount);
+    updateValue(values[statName] + amount);
   }
   return (
     <div className="grid gap-y-1">
@@ -28,12 +28,12 @@ export default function Slider(props: {
         >
           <MinusIcon className="h-6 w-6 my-auto" />
         </div>
-        {values.map((v, i) => {
+        {max_array.map((v, i) => {
           return (
             <div
               key={i}
               className={`h-8 border border-neutral-100 grow${
-                i < value ? " bg-neutral-100" : ""
+                i < values[statName] ? " bg-neutral-100" : ""
               }`}
               onClick={() => {
                 updateValue(i + 1);
