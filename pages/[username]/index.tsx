@@ -1,19 +1,29 @@
 import Slider from "@/components/slider";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function UserRating() {
-  const user = "Example User";
-  const title = `Rate ${user}`;
-  const stats = [
-    { statName: "Looks" },
-    { statName: "Creativity" },
-    { statName: "Humor" },
-    { statName: "Mental Health" },
-    { statName: "Empathy" },
-    { statName: "Patience" },
-    { statName: "Social Skills" },
-    { statName: "Memory" },
+  const router = useRouter();
+  const { username } = router.query;
+
+  const title = `Rate ${username}`;
+  const statsList = [
+    "Looks",
+    "Creativity",
+    "Humor",
+    "Mental Health",
+    "Empathy",
+    "Patience",
+    "Social Skills",
+    "Memory",
   ];
+  const stats = statsList.map((statName) => {
+    const [value, setValue] = useState<number>(0);
+
+    return { statName: statName, value: value, setValue: setValue };
+  });
+
   return (
     <div className="grid gap-y-4">
       <Head>
@@ -21,10 +31,17 @@ export default function UserRating() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <h1 className="text-3xl text-center">Rate {user}</h1>
+      <h1 className="text-3xl text-center">Rate {username}</h1>
       <div className="grid gap-y-3">
-        {stats.map(({ statName }, i) => {
-          return <Slider statName={statName} key={i} />;
+        {stats.map(({ statName, value, setValue }, i) => {
+          return (
+            <Slider
+              statName={statName}
+              value={value}
+              setValue={setValue}
+              key={i}
+            />
+          );
         })}
       </div>
       <button className="border border-neutral-100">RATE!</button>

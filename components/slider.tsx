@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
-export default function Slider(props: { statName: string }) {
-  const { statName } = props;
-  const [value, setValue] = useState<number>(0);
+export default function Slider(props: {
+  statName: string;
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
+}) {
+  const { statName, value, setValue } = props;
   const values = Array.from(Array(10).keys());
 
   function updateValue(new_value: number) {
