@@ -21,7 +21,7 @@ export default function Home() {
           <button className="text-3xl font-bold text-center border m-auto px-2 py-1">
             <Link href={`/auth`}>Sign in First!</Link>
           </button>
-        ) : userInfo.username === "" ? (
+        ) : userInfo.username === "" || !userInfo.username ? (
           <div className="mx-auto">
             <div>Select a username</div>
             <div className="flex">
@@ -33,6 +33,7 @@ export default function Home() {
                 className="border grid w-12 bg-neutral-100 text-neutral-900"
                 onClick={async () => {
                   fetch(`/api/username?username=${ref.current.value}`);
+                  // TODO: refresh page error handling etc
                 }}
               >
                 <CheckIcon className="w-8 h-8 m-auto" />
