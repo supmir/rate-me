@@ -19,9 +19,12 @@ export default function Home() {
       {/* TODO: Username selection */}
       <div className="grid">
         {!session ? (
-          <button className="text-3xl font-bold text-center border m-auto px-2 py-1">
-            <Link href={`/auth`}>Sign in First!</Link>
-          </button>
+          <Link
+            href={`/auth`}
+            className="text-3xl font-bold text-center border m-auto px-2 py-1"
+          >
+            <button>Sign in First!</button>
+          </Link>
         ) : userInfo.username === "" || !userInfo.username ? (
           <div className="mx-auto">
             <div>Select a username</div>
@@ -50,9 +53,12 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <button className="text-3xl font-bold text-center border m-auto px-2 py-1">
-            <Link href={`/@${userInfo.username}`}>Rate yourself!</Link>
-          </button>
+          <Link
+            href={`/@${userInfo.username}`}
+            className="text-3xl font-bold text-center border m-auto px-2 py-1"
+          >
+            <button>Rate yourself!</button>
+          </Link>
         )}
         {/* TODO: link share */}
         {/* <div>

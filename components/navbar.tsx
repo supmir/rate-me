@@ -34,9 +34,9 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between bg-black py-2 px-4">
-      <div className="my-auto">
-        <Link href="/">@{userInfo.username}</Link>
-      </div>
+      <Link href="/" className="my-auto">
+        <div>@{userInfo.username}</div>
+      </Link>
       {session ? (
         <button
           className="border border-neutral-100 px-2 py-1"

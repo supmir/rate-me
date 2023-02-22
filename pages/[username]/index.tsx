@@ -38,9 +38,12 @@ export default function UserProfile() {
         })
       )}
       <div className="w-full flex my-4">
-        <button className="border border-neutral-100 mx-auto px-2 py-1">
-          <Link href={`/${username}/rate`}>Rate this user!</Link>
-        </button>
+        <Link
+          href={`/${username}/rate`}
+          className="border border-neutral-100 mx-auto px-2 py-1"
+        >
+          <button>Rate this user!</button>
+        </Link>
       </div>
     </Layout>
   );
