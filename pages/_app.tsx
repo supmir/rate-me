@@ -1,3 +1,4 @@
+import { AppWrapper } from "@/components/appWrapper";
 import { frontendConfig } from "@/config/frontendConfig";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
@@ -11,7 +12,9 @@ if (typeof window !== "undefined") {
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SuperTokensWrapper>
-      <Component {...pageProps} />
+      <AppWrapper>
+        <Component {...pageProps} />
+      </AppWrapper>
     </SuperTokensWrapper>
   );
 }
