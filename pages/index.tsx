@@ -14,6 +14,10 @@ export default function Home() {
       <button className="text-3xl font-bold text-center w-full">
         <Link href="@user">Start rating yourself!</Link>
       </button>
+      {/* TODO: link share */}
+      {/* <div>
+        <div>Share your link:</div>
+      </div> */}
     </Layout>
   );
 }
