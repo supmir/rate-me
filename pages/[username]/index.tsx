@@ -29,7 +29,7 @@ export default function UserRating() {
   return (
     <SessionAuth>
       <Layout>
-        <div className="grid gap-y-4">
+        <div className="grid gap-y-4 select-none">
           <Head>
             <title>{title}</title>
             <meta
