@@ -20,13 +20,12 @@ export default async function handler(
 
     let userId = req.session!.getUserId();
 
-    const { username } = req.query;
     const user = await db.collection("users").doc(userId).get()
     if (user.exists) {
         res.status(200).json(user.data())
     } else {
         await db.collection("users").doc(userId).set({})
-        res.status(200)
+        res.status(200).json({})
     }
 
 
