@@ -20,7 +20,6 @@ export default async function handler(
 
   let userId = req.session!.getUserId();
 
-  console.log(userId)
   const { username } = req.query;
   const user = await db.collection("users").doc(userId).get()
   if (user.exists && (user.get("username") !== undefined)) {
@@ -30,11 +29,18 @@ export default async function handler(
 
   const snapshot = await db.collection("users").where("username", "==", username).get()
 
+  const data = {
+    username: username,
+    self: {},
+    average: {},
+    count: 0
+  }
+
   if (snapshot.empty) {
     if (user.exists) {
-      db.collection("users").doc(userId).update({ username: username })
+      db.collection("users").doc(userId).update(data)
     } else if (!user.exists) {
-      db.collection("users").doc(userId).set({ username: username })
+      db.collection("users").doc(userId).set(data)
     }
     res.status(200).json({ message: "Username set" })
   } else {
