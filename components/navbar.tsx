@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { signOut } from "supertokens-auth-react/recipe/thirdparty";
 import { doesSessionExist } from "supertokens-website";
 import { useAppContext } from "@/components/appWrapper";
+import Link from "next/link";
 
 export default function Navbar() {
   const { userInfo, updateUserInfo, session, setSession } = useAppContext();
@@ -34,7 +35,9 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between bg-black py-2 px-4">
-      <div className="my-auto">@{userInfo.username}</div>
+      <div className="my-auto">
+        <Link href="/">@{userInfo.username}</Link>
+      </div>
       {session ? (
         <button
           className="border border-neutral-100 px-2 py-1"
