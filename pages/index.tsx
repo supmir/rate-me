@@ -1,7 +1,10 @@
 import Layout from "@/components/layout";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import Head from "next/head";
 import Link from "next/link";
+import { MutableRefObject, useRef } from "react";
 export default function Home() {
+  const ref = useRef() as MutableRefObject<HTMLInputElement>;
   return (
     <Layout>
       <Head>
@@ -11,13 +14,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* TODO: Username selection */}
-      <button className="text-3xl font-bold text-center w-full">
-        <Link href="@user">Start rating yourself!</Link>
-      </button>
-      {/* TODO: link share */}
-      {/* <div>
+      <div className="grid">
+        <div className="mx-auto">
+          <div>Select a username</div>
+          <div className="flex">
+            <input
+              className="bg-neutral-900 border-neutral-100 border p-2"
+              ref={ref}
+            />
+            <button
+              className="border grid w-12 bg-neutral-100 text-neutral-900"
+              onClick={async () => {
+                fetch(`/api/username?username=${ref.current.value}`);
+              }}
+            >
+              <CheckIcon className="w-8 h-8 m-auto" />
+            </button>
+          </div>
+        </div>
+        <button className="text-3xl font-bold text-center">
+          <Link href="@user">Start rating yourself!</Link>
+        </button>
+        {/* TODO: link share */}
+        {/* <div>
         <div>Share your link:</div>
       </div> */}
+      </div>
     </Layout>
   );
 }
