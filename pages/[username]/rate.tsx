@@ -11,7 +11,6 @@ export default function UserRating() {
   const { username } = router.query;
 
   const title = `Rate ${username}`;
-
   const [values, setValues] = useState<{ [key: string]: number }>({});
   function updateValue(statName: string, new_value: number) {
     setValues({ ...values, [statName]: new_value });
@@ -29,8 +28,8 @@ export default function UserRating() {
   function rate() {
     const payload = {
       targetUser: username?.slice(1),
-      rating: stats.map(({ statName }) => {
-        return { statName: statName, value: values[statName] };
+      rating: statsList.map((statName) => {
+        return { statName: statName, value: values[statName] || 0 };
       }),
     };
     fetch("/api/rate", {

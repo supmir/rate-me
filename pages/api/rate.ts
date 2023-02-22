@@ -46,11 +46,9 @@ export default async function handler(
         let new_average: { [key: string]: number } = {}
         for (const statName of statsList) {
             const cur_av = targetUser.data().average[statName] ? targetUser.data().average[statName] : 0
-            console.log(statName, targetUser.data().average[statName], cur_av, count)
 
             new_average[statName] = (ratings[statName] + (cur_av * count)) / (count + 1)
         }
-        console.log(new_average)
         db.collection("users").doc(targetUserId).update({
             average: new_average,
             count: count + 1
