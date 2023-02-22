@@ -26,7 +26,7 @@ export default function UserProfile() {
   return (
     <Layout>
       <div className="text-3xl font-bold text-center">{username}'s profile</div>
-      {userInfo.ratings.length === 0 ? (
+      {!userInfo.ratings || userInfo.ratings.length === 0 ? (
         <div>User is unrated</div>
       ) : (
         userInfo.ratings.map(({ statName, self, average }) => {
