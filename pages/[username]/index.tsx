@@ -15,7 +15,7 @@ export default function UserRating() {
     { statName: "Memory" },
   ];
   return (
-    <div className="grid gap-y-2">
+    <div className="grid gap-y-4">
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,8 +23,8 @@ export default function UserRating() {
 
       <h1 className="text-3xl text-center">Rate {user}</h1>
       <div className="grid gap-y-3">
-        {stats.map(({ statName }) => {
-          return <Slider statName={statName} />;
+        {stats.map(({ statName }, i) => {
+          return <Slider statName={statName} key={i} />;
         })}
       </div>
       <button className="border border-neutral-100">RATE!</button>
