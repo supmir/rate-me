@@ -21,9 +21,9 @@ export default async function handler(
 
     let userId = req.session!.getUserId();
     const payload = JSON.parse(req.body)
-    console.log(payload)
     const snapshot = await db.collection("users").where("username", "==", payload.targetUser).get()
-    const targetUserId = snapshot.docs[0].id
+    const targetUser = snapshot.docs[0]
+    const targetUserId = targetUser.id
 
     let ratings: { [key: string]: number } = {}
     for (const statName of statsList) {
@@ -38,6 +38,25 @@ export default async function handler(
     }
 
     await db.collection("ratings").add(data)
+
+    if (userId === targetUserId) {
+        db.collection("users").doc(userId).update("self", ratings)
+    } else {
+        const count = targetUser.data().count || 0
+        let new_average: { [key: string]: number } = {}
+        for (const statName of statsList) {
+            const cur_av = targetUser.data().average[statName] ? targetUser.data().average[statName] : 0
+            console.log(statName, targetUser.data().average[statName], cur_av, count)
+
+            new_average[statName] = (ratings[statName] + (cur_av * count)) / (count + 1)
+        }
+        console.log(new_average)
+        db.collection("users").doc(targetUserId).update({
+            average: new_average,
+            count: count + 1
+        })
+
+    }
 
     res.status(200).json({ "message": "bruh" })
 
