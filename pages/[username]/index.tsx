@@ -26,6 +26,20 @@ export default function UserRating() {
     return { statName: statName, value: value, setValue: setValue };
   });
 
+  function rate() {
+    const payload = {
+      targetUser: username?.slice(1),
+      rating: stats.map(({ statName, value }) => {
+        return { statName: statName, value: value };
+      }),
+    };
+    fetch("/api/rate", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    window.location.href = `/${username}`;
+  }
+
   return (
     <SessionAuth>
       <Layout>
@@ -51,7 +65,9 @@ export default function UserRating() {
               );
             })}
           </div>
-          <button className="border border-neutral-100">RATE!</button>
+          <button className="border border-neutral-100" onClick={rate}>
+            RATE!
+          </button>
         </div>
       </Layout>
     </SessionAuth>
