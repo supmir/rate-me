@@ -5,8 +5,7 @@ import { doesSessionExist } from "supertokens-website";
 import { useAppContext } from "@/components/appWrapper";
 
 export default function Navbar() {
-  const { userInfo, updateUserInfo } = useAppContext();
-  const [session, setSession] = useState(false);
+  const { userInfo, updateUserInfo, session, setSession } = useAppContext();
   async function updateSession() {
     setSession(await doesSessionExist());
   }

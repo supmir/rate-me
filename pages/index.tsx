@@ -6,7 +6,7 @@ import Link from "next/link";
 import { MutableRefObject, useRef } from "react";
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
-  const { userInfo } = useAppContext();
+  const { userInfo, session } = useAppContext();
   return (
     <Layout>
       <Head>
@@ -17,7 +17,11 @@ export default function Home() {
       </Head>
       {/* TODO: Username selection */}
       <div className="grid">
-        {userInfo.username === "" ? (
+        {!session ? (
+          <button className="text-3xl font-bold text-center border m-auto px-2 py-1">
+            <Link href={`/auth`}>Sign in First!</Link>
+          </button>
+        ) : userInfo.username === "" ? (
           <div className="mx-auto">
             <div>Select a username</div>
             <div className="flex">

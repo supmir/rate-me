@@ -17,12 +17,15 @@ type Props = {
 
 export function AppWrapper({ children }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo>(userInfoDefault);
+  const [session, setSession] = useState<boolean>(false);
 
   const value = {
     userInfo: userInfo,
     updateUserInfo: (userInfo: UserInfo) => {
       setUserInfo(userInfo);
     },
+    session: session,
+    setSession: setSession,
   };
   return (
     <>
