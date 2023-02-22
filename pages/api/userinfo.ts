@@ -25,7 +25,8 @@ export default async function handler(
     if (user.exists) {
         res.status(200).json(user.data())
     } else {
-        res.status(404).json({ message: "User not found" })
+        await db.collection("users").doc(userId).set({})
+        res.status(200)
     }
 
 
