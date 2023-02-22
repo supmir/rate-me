@@ -16,7 +16,6 @@ export default function Navbar() {
   }
 
   function clickSignIn() {
-    console.log("here");
     window.location.href = "/auth";
   }
   async function clickSignOut() {
