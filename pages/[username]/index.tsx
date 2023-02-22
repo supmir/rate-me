@@ -1,6 +1,7 @@
 import Bar from "@/components/bar";
 import Layout from "@/components/layout";
 import { UserInfo, userInfoDefault } from "@/types/userInfo";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 export default function UserProfile() {
@@ -32,6 +33,11 @@ export default function UserProfile() {
           return <Bar statName={statName} self={self} average={average} />;
         })
       )}
+      <div className="w-full flex my-4">
+        <button className="border border-neutral-100 mx-auto px-2 py-1">
+          <Link href={`/${username}/rate`}>Rate this user!</Link>
+        </button>
+      </div>
     </Layout>
   );
 }
