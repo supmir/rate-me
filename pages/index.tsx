@@ -1,5 +1,6 @@
 import Layout from "@/components/layout";
 import Head from "next/head";
+import Link from "next/link";
 export default function Home() {
   return (
     <Layout>
@@ -9,7 +10,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      {/* TODO: Username selection */}
+      <button className="text-3xl font-bold text-center w-full">
+        <Link href="@user">Start rating yourself!</Link>
+      </button>
     </Layout>
   );
 }
