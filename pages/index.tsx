@@ -3,10 +3,11 @@ import Layout from "@/components/layout";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import Head from "next/head";
 import Link from "next/link";
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
   const { userInfo, session } = useAppContext();
+  const [usernameMessage, setUsernameMessage] = useState("");
   return (
     <Layout>
       <Head>
@@ -24,6 +25,7 @@ export default function Home() {
         ) : userInfo.username === "" || !userInfo.username ? (
           <div className="mx-auto">
             <div>Select a username</div>
+            <div className="text-sm text-red-600">{usernameMessage}</div>
             <div className="flex">
               <input
                 className="bg-neutral-900 border-neutral-100 border p-2"
@@ -32,7 +34,14 @@ export default function Home() {
               <button
                 className="border grid w-12 bg-neutral-100 text-neutral-900"
                 onClick={async () => {
-                  fetch(`/api/username?username=${ref.current.value}`);
+                  const resp = await fetch(
+                    `/api/username?username=${ref.current.value}`
+                  );
+                  if (resp.ok) {
+                    window.location.href = "/";
+                  } else {
+                    setUsernameMessage("Username taken");
+                  }
                   // TODO: refresh page error handling etc
                 }}
               >
