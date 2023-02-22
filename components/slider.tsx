@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
 export default function Slider(props: { statName: string }) {
   const { statName } = props;
@@ -20,8 +21,9 @@ export default function Slider(props: { statName: string }) {
           onClick={() => {
             stepValue(-1);
           }}
+          className="flex"
         >
-          -
+          <MinusIcon className="h-6 w-6 my-auto" />
         </div>
         {values.map((v, i) => {
           return (
@@ -40,8 +42,9 @@ export default function Slider(props: { statName: string }) {
           onClick={() => {
             stepValue(1);
           }}
+          className="flex"
         >
-          +
+          <PlusIcon className="h-6 w-6 my-auto" />
         </div>
       </div>
     </div>
