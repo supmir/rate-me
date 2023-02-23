@@ -1,5 +1,6 @@
 import { useAppContext } from "@/components/appWrapper";
 import Layout from "@/components/layout";
+import ShareField from "@/components/shareField";
 import { sleep } from "@/lib/site";
 import {
   CheckIcon,
@@ -12,7 +13,6 @@ export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
   const { userInfo, session } = useAppContext();
   const [usernameMessage, setUsernameMessage] = useState("");
-  const [isCopied, setIsCopied] = useState(false);
   return (
     <Layout>
       <div className="flex h-full">
@@ -61,27 +61,7 @@ export default function Home() {
             >
               <button>Rate yourself!</button>
             </Link>
-            <div className="flex flex-col">
-              <div className="mx-auto">Share your profile to your friends!</div>
-              <button
-                className="border p-2 rounded-xl mx-auto flex gap-x-2 select-none"
-                onClick={async () => {
-                  navigator.clipboard.writeText(
-                    `https://mirrorrate.vercel.app/@${userInfo.username}`
-                  );
-                  setIsCopied(true);
-                  await sleep(3000);
-                  setIsCopied(false);
-                }}
-              >
-                {`https://mirrorrate.vercel.app/@${userInfo.username}`}
-                {isCopied ? (
-                  <ClipboardDocumentCheckIcon className="h-6 w-6" />
-                ) : (
-                  <ClipboardDocumentIcon className="h-6 w-6" />
-                )}
-              </button>
-            </div>
+            <ShareField message="Share your profile to your friends!" />
           </div>
         )}
         {/* TODO: link share */}
