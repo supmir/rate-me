@@ -18,7 +18,7 @@ export default function ShareField(props: {
     <div className="flex flex-col">
       <div className="mx-auto">{message}</div>
       <button
-        className="border p-2 rounded-xl mx-auto flex gap-x-2 select-none"
+        className="border p-2 rounded-xl mx-auto flex select-none max-w-full"
         onClick={async () => {
           share(
             "Mirror Rate",
@@ -31,12 +31,16 @@ export default function ShareField(props: {
           setIsCopied(false);
         }}
       >
-        {`https://mirrorrate.vercel.app/@${userInfo.username}`}
-        {isCopied ? (
-          <ClipboardDocumentCheckIcon className="h-6 w-6" />
-        ) : (
-          <ClipboardDocumentIcon className="h-6 w-6" />
-        )}
+        <div className="truncate shrink" dir="rtl">
+          {`mirrorrate.vercel.app/@${userInfo.username}`}
+        </div>
+        <div>
+          {isCopied ? (
+            <ClipboardDocumentCheckIcon className="h-6 w-6" />
+          ) : (
+            <ClipboardDocumentIcon className="h-6 w-6" />
+          )}
+        </div>
       </button>
     </div>
   );
