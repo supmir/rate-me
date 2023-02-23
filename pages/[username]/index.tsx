@@ -1,3 +1,4 @@
+import { useAppContext } from "@/components/appWrapper";
 import Bar from "@/components/bar";
 import Layout from "@/components/layout";
 import ShareField from "@/components/shareField";
@@ -7,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, MutableRefObject, useEffect, useRef, useState } from "react";
 export default function UserProfile() {
+  const { session } = useAppContext();
   const router = useRouter();
   const { username } = router.query;
   const [userInfo, setUserInfo] = useState<UserInfo>(userInfoDefault);
@@ -53,7 +55,7 @@ export default function UserProfile() {
               href={`/${username}/rate`}
               className="border border-neutral-100 px-2 py-1 my-auto"
             >
-              <button>Rate!</button>
+              <button>{session ? "Rate!" : "Login to rate"}</button>
             </Link>
           )}
         </div>
