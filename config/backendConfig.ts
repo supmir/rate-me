@@ -3,7 +3,7 @@ import ThirdPartyEmailPasswordNode from 'supertokens-node/recipe/thirdpartyemail
 import SessionNode from 'supertokens-node/recipe/session'
 import { appInfo } from './appInfo'
 import { TypeInput } from "supertokens-node/types";
-// TODO: Generate own api keys https://supertokens.com/docs/thirdparty/nextjs/init step 5
+// Generate own api keys https://supertokens.com/docs/thirdparty/nextjs/init step 5
 export const backendConfig = (): TypeInput => {
     return {
         framework: "express",
