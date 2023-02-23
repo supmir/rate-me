@@ -33,7 +33,7 @@ export default function Navbar() {
   }, [session]);
 
   return (
-    <div className="flex justify-between bg-black py-2 px-4">
+    <div className="flex justify-between bg-black py-2 px-4 h-16">
       <Link href="/" className="my-auto">
         <div>@{userInfo.username}</div>
       </Link>
