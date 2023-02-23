@@ -68,10 +68,6 @@ export default function UserProfile() {
               <Bar statName={statName} self={self} average={average} key={i} />
             );
           })}
-          <div className="py-4">
-            The upper bar represents the user&#39;s average rating. <br />
-            The lower bar represents the user&#39;s self rating.
-          </div>
           <div className="py-3">
             <ShareField
               message="Share this profile"
