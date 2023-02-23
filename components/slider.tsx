@@ -20,17 +20,17 @@ export default function Slider(props: {
     <div className="grid gap-y-1">
       <div className="mx-auto">{statName}</div>
       <div className="flex gap-x-1 grow my-auto">
-        <div
+        <button
           onClick={() => {
             stepValue(-1);
           }}
           className="flex"
         >
           <MinusIcon className="h-6 w-6 my-auto" />
-        </div>
+        </button>
         {max_array.map((v, i) => {
           return (
-            <div
+            <button
               key={i}
               className={`h-8 border border-neutral-100 grow${
                 i < values[statName] ? " bg-neutral-100" : ""
@@ -38,17 +38,17 @@ export default function Slider(props: {
               onClick={() => {
                 updateValue(i + 1);
               }}
-            ></div>
+            ></button>
           );
         })}
-        <div
+        <button
           onClick={() => {
             stepValue(1);
           }}
           className="flex"
         >
           <PlusIcon className="h-6 w-6 my-auto" />
-        </div>
+        </button>
       </div>
     </div>
   );
