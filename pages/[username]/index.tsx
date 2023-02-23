@@ -10,6 +10,7 @@ export default function UserProfile() {
   const router = useRouter();
   const { username } = router.query;
   const [userInfo, setUserInfo] = useState<UserInfo>(userInfoDefault);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   async function fetchUserInfo() {
     const data = await fetch(
@@ -17,6 +18,7 @@ export default function UserProfile() {
     );
     const data_json = await data.json();
     setUserInfo(data_json);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export default function UserProfile() {
   return (
     <Layout>
       <div className="w-full flex my-4 justify-between">
+        {isLoading && "Loading..."}
         <div className="text-3xl font-bold text-left">
           {username}&#39;s profile
         </div>
@@ -54,9 +57,9 @@ export default function UserProfile() {
           </Link>
         )}
       </div>
-      {!userInfo.ratings || userInfo.ratings.length === 0 ? (
+      {(!userInfo.ratings || userInfo.ratings.length === 0) && !isLoading ? (
         <div className="text-center">
-          User does not have an account. Invite them!
+          {username} does not have an account. Invite them!
         </div>
       ) : (
         <Fragment>
