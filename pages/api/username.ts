@@ -3,6 +3,7 @@ import { firestore as db } from '@/lib/firebase-util'
 import { superTokensNextWrapper } from 'supertokens-node/nextjs'
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { SessionRequest } from "supertokens-node/framework/express";
+import { getUserById } from 'supertokens-node/recipe/thirdpartyemailpassword';
 
 export default async function handler(
   req: SessionRequest,
@@ -19,6 +20,7 @@ export default async function handler(
   )
 
   let userId = req.session!.getUserId();
+  let email = (await getUserById(userId || ""))?.email || ""
 
   const { username } = req.query;
   const user = await db.collection("users").doc(userId).get()
@@ -31,6 +33,7 @@ export default async function handler(
 
   const data = {
     username: username,
+    email: email,
     self: {},
     average: {},
     count: 0
