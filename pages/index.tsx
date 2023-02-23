@@ -61,7 +61,10 @@ export default function Home() {
             >
               <button>Rate yourself!</button>
             </Link>
-            <ShareField message="Share your profile to your friends!" />
+            <ShareField
+              message="Share your profile to your friends!"
+              shareMessage="Check out my Mirror Rate Profile:"
+            />
           </div>
         )}
         {/* TODO: link share */}

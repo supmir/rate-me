@@ -6,9 +6,12 @@ import {
 import { useState } from "react";
 import { useAppContext } from "./appWrapper";
 
-export default function ShareField(props: { message: string }) {
+export default function ShareField(props: {
+  message: string;
+  shareMessage: string;
+}) {
   const { userInfo } = useAppContext();
-  const { message } = props;
+  const { message, shareMessage } = props;
   const [isCopied, setIsCopied] = useState(false);
 
   return (
@@ -19,7 +22,7 @@ export default function ShareField(props: { message: string }) {
         onClick={async () => {
           share(
             "Mirror Rate",
-            "Check out my Mirror Rate Profile:",
+            shareMessage,
             `https://mirrorrate.vercel.app/@${userInfo.username}`
           );
 

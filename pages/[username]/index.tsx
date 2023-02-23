@@ -70,7 +70,10 @@ export default function UserProfile() {
             The lower bar represents the user&#39;s self rating.
           </div>
           <div className="py-3">
-            <ShareField message="Share this profile" />
+            <ShareField
+              message="Share this profile"
+              shareMessage="Check out this Mirror Rate Profile:"
+            />
           </div>
         </Fragment>
       )}
