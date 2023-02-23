@@ -90,15 +90,18 @@ export default function UserProfile() {
       !document.fullscreenEnabled ? (
         ""
       ) : (
-        <div className="w-full flex">
+        <div className="w-full flex flex-col my-4 gap-y-1">
           <button
             onClick={() => {
               profileRef.current.requestFullscreen();
             }}
-            className="border border-neutral-100 px-2 py-1 mx-auto my-4"
+            className="border border-neutral-100 px-2 py-1 mx-auto"
           >
             View in fullsreen
           </button>
+          <div className="text-xs italic text-center">
+            (iPhones do not support this feature)
+          </div>
         </div>
       )}
     </Layout>
