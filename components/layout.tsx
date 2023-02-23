@@ -39,7 +39,7 @@ export default function Layout(props: any) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <div className="w-full max-w-2xl mx-auto p-2 h-full">
+      <div className="w-full max-w-2xl mx-auto p-2 h-full overflow-y-scroll">
         {props.children}
       </div>
     </div>
