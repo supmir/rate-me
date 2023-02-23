@@ -25,8 +25,16 @@ export default function UserProfile() {
 
   return (
     <Layout>
-      <div className="text-3xl font-bold text-center">
-        {username}&#39;s profile
+      <div className="w-full flex my-4 justify-between">
+        <div className="text-3xl font-bold text-center">
+          {username}&#39;s profile
+        </div>
+        <Link
+          href={`/${username}/rate`}
+          className="border border-neutral-100 px-2 py-1"
+        >
+          <button>Rate this user!</button>
+        </Link>
       </div>
       {!userInfo.ratings || userInfo.ratings.length === 0 ? (
         <div>User is unrated</div>
@@ -37,14 +45,6 @@ export default function UserProfile() {
           );
         })
       )}
-      <div className="w-full flex my-4">
-        <Link
-          href={`/${username}/rate`}
-          className="border border-neutral-100 mx-auto px-2 py-1"
-        >
-          <button>Rate this user!</button>
-        </Link>
-      </div>
     </Layout>
   );
 }
