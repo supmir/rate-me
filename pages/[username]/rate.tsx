@@ -3,7 +3,7 @@ import Slider from "@/components/slider";
 import { statsList } from "@/types/userInfo";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SessionAuth } from "supertokens-auth-react/recipe/session";
 
 export default function UserRating() {
@@ -12,6 +12,7 @@ export default function UserRating() {
 
   const title = `Rate ${username}`;
   const [values, setValues] = useState<{ [key: string]: number }>({});
+
   function updateValue(statName: string, new_value: number) {
     setValues({ ...values, [statName]: new_value });
   }
@@ -38,6 +39,22 @@ export default function UserRating() {
     });
     window.location.href = `/${username}`;
   }
+  async function fetchUserInfo() {
+    const data = await fetch(
+      `/api/publicuserinfo?username=${username?.slice(1)}`
+    );
+    if (data.ok) {
+      const data_json = await data.json();
+    } else {
+      router.push(`/${username}`);
+    }
+  }
+
+  useEffect(() => {
+    if (username) {
+      fetchUserInfo();
+    }
+  }, [username]);
 
   return (
     <SessionAuth>
