@@ -1,4 +1,4 @@
-import { sleep } from "@/lib/site";
+import { share, sleep } from "@/lib/site";
 import {
   ClipboardDocumentCheckIcon,
   ClipboardDocumentIcon,
@@ -17,9 +17,12 @@ export default function ShareField(props: { message: string }) {
       <button
         className="border p-2 rounded-xl mx-auto flex gap-x-2 select-none"
         onClick={async () => {
-          navigator.clipboard.writeText(
+          share(
+            "Mirror Rate",
+            "Check out my Mirror Rate Profile:",
             `https://mirrorrate.vercel.app/@${userInfo.username}`
           );
+
           setIsCopied(true);
           await sleep(3000);
           setIsCopied(false);

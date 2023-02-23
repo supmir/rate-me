@@ -1,10 +1,11 @@
 import Bar from "@/components/bar";
 import Layout from "@/components/layout";
 import ShareField from "@/components/shareField";
+import { share } from "@/lib/site";
 import { UserInfo, userInfoDefault } from "@/types/userInfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 export default function UserProfile() {
   const router = useRouter();
   const { username } = router.query;
@@ -27,33 +28,52 @@ export default function UserProfile() {
   return (
     <Layout>
       <div className="w-full flex my-4 justify-between">
-        <div className="text-3xl font-bold text-center">
+        <div className="text-3xl font-bold text-left">
           {username}&#39;s profile
         </div>
-        <Link
-          href={`/${username}/rate`}
-          className="border border-neutral-100 px-2 py-1"
-        >
-          <button>Rate!</button>
-        </Link>
+        {!userInfo.ratings || userInfo.ratings.length === 0 ? (
+          <button
+            className="border border-neutral-100 px-2 py-1 my-auto"
+            onClick={(e) => {
+              const action = share(
+                "Mirror Rate",
+                "You should make a Mirror Rate Profile",
+                "https://mirrorrate.vercel.app/"
+              );
+              e.currentTarget.innerHTML = action;
+            }}
+          >
+            Invite
+          </button>
+        ) : (
+          <Link
+            href={`/${username}/rate`}
+            className="border border-neutral-100 px-2 py-1 my-auto"
+          >
+            <button>Rate!</button>
+          </Link>
+        )}
       </div>
       {!userInfo.ratings || userInfo.ratings.length === 0 ? (
-        <div>User is unrated</div>
+        <div className="text-center">
+          User does not have an account. Invite them!
+        </div>
       ) : (
-        userInfo.ratings.map(({ statName, self, average }, i) => {
-          return (
-            <Bar statName={statName} self={self} average={average} key={i} />
-          );
-        })
+        <Fragment>
+          {userInfo.ratings.map(({ statName, self, average }, i) => {
+            return (
+              <Bar statName={statName} self={self} average={average} key={i} />
+            );
+          })}
+          <div className="py-4">
+            The upper bar represents the user's average rating. <br />
+            The lower bar represents the user's self rating.
+          </div>
+          <div className="py-3">
+            <ShareField message="Share this profile" />
+          </div>
+        </Fragment>
       )}
-      <div className="py-3">
-        <ShareField message="Share this profile" />
-      </div>
-
-      <div className="py-4">
-        The upper bar represents the user's average rating. <br />
-        The lower bar represents the user's self rating.
-      </div>
     </Layout>
   );
 }
