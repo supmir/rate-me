@@ -85,21 +85,21 @@ export default function UserProfile() {
         )}
       </div>
 
-      {(!userInfo.ratings || userInfo.ratings.length === 0) && !isLoading ? (
+      {(!userInfo.ratings || userInfo.ratings.length === 0) &&
+      !isLoading &&
+      !document.fullscreenEnabled ? (
         ""
       ) : (
-        <Fragment>
-          <div className="w-full flex">
-            <button
-              onClick={() => {
-                profileRef.current.requestFullscreen();
-              }}
-              className="border border-neutral-100 px-2 py-1 mx-auto my-4"
-            >
-              View in fullsreen
-            </button>
-          </div>
-        </Fragment>
+        <div className="w-full flex">
+          <button
+            onClick={() => {
+              profileRef.current.requestFullscreen();
+            }}
+            className="border border-neutral-100 px-2 py-1 mx-auto my-4"
+          >
+            View in fullsreen
+          </button>
+        </div>
       )}
     </Layout>
   );
