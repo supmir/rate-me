@@ -22,7 +22,7 @@ export default async function handler(
 
     let userId = req.session!.getUserId();
     const payload = JSON.parse(req.body)
-    const snapshot = await db.collection("users").where("username", "==", payload.targetUser).get()
+    const snapshot = await db.collection("users").where("username_lowercase", "==", payload.targetUser.toLowerCase()).get()
     const targetUser = snapshot.docs[0]
     const targetUserId = targetUser.id
 

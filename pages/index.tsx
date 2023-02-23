@@ -18,7 +18,8 @@ export default function Home() {
     if (resp.ok) {
       updateUserInfo();
     } else {
-      setUsernameMessage("Username taken");
+      const resp_json = await resp.json();
+      setUsernameMessage(resp_json.message);
     }
   }
 
@@ -33,12 +34,12 @@ export default function Home() {
             <button>Sign in First!</button>
           </Link>
         ) : userInfo.username === "" || !userInfo.username ? (
-          <div className="m-auto">
+          <div className="m-auto w-full">
             <div>Select a username</div>
             <div className="text-sm text-red-600">{usernameMessage}</div>
-            <div className="flex">
+            <div className="flex w-full">
               <input
-                className="bg-neutral-900 border-neutral-100 border p-2"
+                className="bg-neutral-900 border-neutral-100 border p-2 grow"
                 ref={ref}
               />
               <button

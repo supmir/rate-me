@@ -23,17 +23,31 @@ export default async function handler(
   let userId = req.session!.getUserId();
   let email = (await getUserById(userId || ""))?.email || ""
 
-  const { username } = req.query;
+  const username = (req.query.username || "") as string;
+
+
+  if (/[^a-zA-Z0-9._]/.test(username)) {
+    res.status(422).json({ message: "Only letters, numbers, underscores and periods are allowed." })
+    return
+  }
+  if (username.length > 4) {
+    res.status(422).json({ message: "You gotta be friends with me if you want a username that short 😤" })
+    return
+  }
+
+
+
   const user = await db.collection("users").doc(userId).get()
   if (user.exists && (user.get("username") !== undefined)) {
     res.status(422).json({ message: "Username has been set before" })
     return
   }
 
-  const snapshot = await db.collection("users").where("username", "==", username).get()
+  const snapshot = await db.collection("users").where("username_lowercase", "==", username.toLowerCase()).get()
 
   let data: { [key: string]: any } = {
     username: username,
+    username_lowercase: username.toLowerCase(),
     email: email,
     self: {},
     average: {},

@@ -7,8 +7,12 @@ export default async function handler(
     req: SessionRequest,
     res: any
 ) {
-    const { username } = req.query
-    const snapshot = await db.collection("users").where("username", "==", username).get()
+    const username = (req.query.username) as string
+    if (!username) {
+        res.status(404).json({})
+    }
+
+    const snapshot = await db.collection("users").where("username_lowercase", "==", username.toLowerCase()).get()
 
     if (!snapshot.empty) {
         const data = await snapshot.docs[0].data()
