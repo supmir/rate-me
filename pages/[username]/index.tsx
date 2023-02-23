@@ -33,7 +33,7 @@ export default function UserProfile() {
           href={`/${username}/rate`}
           className="border border-neutral-100 px-2 py-1"
         >
-          <button>Rate this user!</button>
+          <button>Rate!</button>
         </Link>
       </div>
       {!userInfo.ratings || userInfo.ratings.length === 0 ? (
@@ -45,6 +45,11 @@ export default function UserProfile() {
           );
         })
       )}
+
+      <div className="py-4">
+        The upper bar represents the user's average rating. <br />
+        The lower bar represents the user's self rating.
+      </div>
     </Layout>
   );
 }
