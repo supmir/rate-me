@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Layout>
       {/* TODO: Username selection */}
-      <div className="grid">
+      <div className="flex h-full">
         {!session ? (
           <Link
             href={`/auth`}
@@ -19,7 +19,7 @@ export default function Home() {
             <button>Sign in First!</button>
           </Link>
         ) : userInfo.username === "" || !userInfo.username ? (
-          <div className="mx-auto">
+          <div className="m-auto">
             <div>Select a username</div>
             <div className="text-sm text-red-600">{usernameMessage}</div>
             <div className="flex">
