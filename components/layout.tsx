@@ -44,7 +44,7 @@ export default function Layout(props: any) {
         <div className="p-2 w-full max-w-2xl mx-auto grow">
           {props.children}
         </div>
-        <div className="text-center p-4 bg-black min-h-12">
+        {/* <div className="text-center p-4 bg-black min-h-12">
           <span className="my-auto">
             I'm a solo developer, if you like what you see,{" "}
           </span>
@@ -56,7 +56,7 @@ export default function Layout(props: any) {
               buy me a coffee
             </Link>
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
