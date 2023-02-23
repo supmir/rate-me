@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 
 export default function Layout(props: any) {
   return (
-    <div className="grid gap-y-2">
+    <div className="flex flex-col gap-y-2 h-screen">
       <Navbar />
 
       <Head>
@@ -39,7 +39,9 @@ export default function Layout(props: any) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <div className="w-full max-w-2xl mx-auto p-2">{props.children}</div>
+      <div className="w-full max-w-2xl mx-auto p-2 h-full">
+        {props.children}
+      </div>
     </div>
   );
 }
