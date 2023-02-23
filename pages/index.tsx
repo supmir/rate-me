@@ -67,10 +67,6 @@ export default function Home() {
             />
           </div>
         )}
-        {/* TODO: link share */}
-        {/* <div>
-        <div>Share your link:</div>
-      </div> */}
       </div>
     </Layout>
   );
