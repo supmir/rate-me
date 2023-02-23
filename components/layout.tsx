@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Navbar from "./navbar";
 
 export default function Layout(props: any) {
@@ -39,8 +40,23 @@ export default function Layout(props: any) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <div className="w-full max-w-2xl mx-auto p-2 h-full overflow-y-scroll">
-        {props.children}
+      <div className="w-full h-full overflow-y-scroll flex flex-col">
+        <div className="p-2 w-full max-w-2xl mx-auto grow">
+          {props.children}
+        </div>
+        <div className="text-center p-4 bg-black min-h-12">
+          <span className="my-auto">
+            I'm a solo developer, if you like what you see,{" "}
+          </span>
+          <span>
+            <Link
+              href="https://ko-fi.com/twitchy77"
+              className="my-auto underline"
+            >
+              buy me a coffee
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
