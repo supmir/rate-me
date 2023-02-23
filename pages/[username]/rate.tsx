@@ -25,14 +25,14 @@ export default function UserRating() {
     };
   });
 
-  function rate() {
+  async function rate() {
     const payload = {
       targetUser: username?.slice(1),
       rating: statsList.map((statName) => {
         return { statName: statName, value: values[statName] || 0 };
       }),
     };
-    fetch("/api/rate", {
+    await fetch("/api/rate", {
       method: "POST",
       body: JSON.stringify(payload),
     });
@@ -64,7 +64,12 @@ export default function UserRating() {
               );
             })}
           </div>
-          <button className="border border-neutral-100" onClick={rate}>
+          <button
+            className="border border-neutral-100"
+            onClick={() => {
+              rate();
+            }}
+          >
             RATE!
           </button>
         </div>

@@ -1,18 +1,27 @@
 import { useAppContext } from "@/components/appWrapper";
 import Layout from "@/components/layout";
 import ShareField from "@/components/shareField";
-import { sleep } from "@/lib/site";
-import {
-  CheckIcon,
-  ClipboardDocumentCheckIcon,
-  ClipboardDocumentIcon,
-} from "@heroicons/react/24/solid";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { MutableRefObject, useRef, useState } from "react";
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
   const { userInfo, session } = useAppContext();
   const [usernameMessage, setUsernameMessage] = useState("");
+
+  async function getUsername() {
+    if (ref.current.value === "") {
+      setUsernameMessage("This can't be empty");
+      return;
+    }
+    const resp = await fetch(`/api/username?username=${ref.current.value}`);
+    if (resp.ok) {
+      window.location.href = "/";
+    } else {
+      setUsernameMessage("Username taken");
+    }
+  }
+
   return (
     <Layout>
       <div className="flex h-full">
@@ -34,19 +43,8 @@ export default function Home() {
               />
               <button
                 className="border grid w-12 bg-neutral-100 text-neutral-900"
-                onClick={async () => {
-                  if (ref.current.value === "") {
-                    setUsernameMessage("This can't be empty");
-                    return;
-                  }
-                  const resp = await fetch(
-                    `/api/username?username=${ref.current.value}`
-                  );
-                  if (resp.ok) {
-                    window.location.href = "/";
-                  } else {
-                    setUsernameMessage("Username taken");
-                  }
+                onClick={() => {
+                  getUsername();
                 }}
               >
                 <CheckIcon className="w-8 h-8 m-auto" />
