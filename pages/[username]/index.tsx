@@ -66,8 +66,8 @@ export default function UserProfile() {
             );
           })}
           <div className="py-4">
-            The upper bar represents the user's average rating. <br />
-            The lower bar represents the user's self rating.
+            The upper bar represents the user&#39;s average rating. <br />
+            The lower bar represents the user&#39;s self rating.
           </div>
           <div className="py-3">
             <ShareField message="Share this profile" />
