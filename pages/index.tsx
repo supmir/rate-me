@@ -4,6 +4,9 @@ import ShareField from "@/components/shareField";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { MutableRefObject, useRef, useState } from "react";
+
+import axios, { AxiosError } from "axios";
+
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
   const { userInfo, session, updateUserInfo } = useAppContext();
@@ -14,12 +17,25 @@ export default function Home() {
       setUsernameMessage("This can't be empty");
       return;
     }
-    const resp = await fetch(`/api/username?username=${ref.current.value}`);
-    if (resp.ok) {
-      updateUserInfo();
-    } else {
-      const resp_json = await resp.json();
-      setUsernameMessage(resp_json.message);
+    const username = ref.current.value;
+    try {
+      const resp = await axios.post("/api/username", { username });
+      if (resp.status === 200) {
+        updateUserInfo();
+      } else {
+        setUsernameMessage(resp.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        setUsernameMessage(
+          error.response?.data.message ||
+            "An error occurred while checking the username."
+        );
+        // setUsernameMessage(error);
+      } else {
+        setUsernameMessage("An error occurred while checking the username.");
+      }
     }
   }
 

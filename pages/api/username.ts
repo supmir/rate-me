@@ -23,14 +23,14 @@ export default async function handler(
   let userId = req.session!.getUserId();
   let email = (await getUserById(userId || ""))?.email || ""
 
-  const username = (req.query.username || "") as string;
+  const username = (req.body.username || "") as string;
 
 
   if (/[^a-zA-Z0-9._]/.test(username)) {
     res.status(422).json({ message: "Only letters, numbers, underscores and periods are allowed." })
     return
   }
-  if (username.length > 4) {
+  if (username.length < 4) {
     res.status(422).json({ message: "You gotta be friends with me if you want a username that short 😤" })
     return
   }
@@ -39,7 +39,7 @@ export default async function handler(
 
   const user = await db.collection("users").doc(userId).get()
   if (user.exists && (user.get("username") !== undefined)) {
-    res.status(422).json({ message: "Username has been set before" })
+    res.status(422).json({ message: "Username has been set before. Please refresh the page" })
     return
   }
 
