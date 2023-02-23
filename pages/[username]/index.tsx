@@ -1,5 +1,6 @@
 import Bar from "@/components/bar";
 import Layout from "@/components/layout";
+import ShareField from "@/components/shareField";
 import { UserInfo, userInfoDefault } from "@/types/userInfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -45,6 +46,9 @@ export default function UserProfile() {
           );
         })
       )}
+      <div className="py-3">
+        <ShareField message="Share this profile" />
+      </div>
 
       <div className="py-4">
         The upper bar represents the user's average rating. <br />
