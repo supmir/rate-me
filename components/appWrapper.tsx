@@ -21,7 +21,11 @@ export function AppWrapper({ children }: Props) {
 
   const value = {
     userInfo: userInfo,
-    updateUserInfo: (userInfo: UserInfo) => {
+    updateUserInfo: async () => {
+      const data = await fetch("/api/userinfo");
+      setUserInfo(await data.json());
+    },
+    replaceUserInfo: (userInfo: UserInfo) => {
       setUserInfo(userInfo);
     },
     session: session,

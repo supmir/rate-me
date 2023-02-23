@@ -10,14 +10,7 @@ export default function Navbar() {
   async function updateSession() {
     setSession(await doesSessionExist());
   }
-  async function getUserInfo() {
-    const data = await fetch("/api/userinfo");
-    updateUserInfo(await data.json());
-  }
 
-  function clickSignIn() {
-    window.location.href = "/auth";
-  }
   async function clickSignOut() {
     await signOut();
     window.location.href = "/";
@@ -28,7 +21,7 @@ export default function Navbar() {
   }, []);
   useEffect(() => {
     if (session) {
-      getUserInfo();
+      updateUserInfo();
     }
   }, [session]);
 
@@ -45,12 +38,11 @@ export default function Navbar() {
           Sign Out
         </button>
       ) : (
-        <button
-          className="border border-neutral-100 px-2 py-1"
-          onClick={clickSignIn}
-        >
-          Sign In
-        </button>
+        <Link href="/auth">
+          <button className="border border-neutral-100 px-2 py-1">
+            Sign In
+          </button>
+        </Link>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { MutableRefObject, useRef, useState } from "react";
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
-  const { userInfo, session } = useAppContext();
+  const { userInfo, session, updateUserInfo } = useAppContext();
   const [usernameMessage, setUsernameMessage] = useState("");
 
   async function getUsername() {
@@ -16,7 +16,7 @@ export default function Home() {
     }
     const resp = await fetch(`/api/username?username=${ref.current.value}`);
     if (resp.ok) {
-      window.location.href = "/";
+      updateUserInfo();
     } else {
       setUsernameMessage("Username taken");
     }
