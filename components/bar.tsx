@@ -20,7 +20,7 @@ export default function Bar(props: {
             ></div>
           );
         })}
-        <div className="w-12">{average}/10</div>
+        <div className="w-12 text-right my-auto">{average.toFixed(1)}/10</div>
       </div>
       <div className="flex gap-x-1 grow my-auto">
         {values.map((v, i) => {
@@ -33,7 +33,7 @@ export default function Bar(props: {
             ></div>
           );
         })}
-        <div className="w-12">{self}/10</div>
+        <div className="w-12 text-right my-auto">{self.toFixed(1)}/10</div>
       </div>
     </div>
   );
