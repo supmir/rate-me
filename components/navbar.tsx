@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { signOut } from "supertokens-auth-react/recipe/thirdparty";
 import { doesSessionExist } from "supertokens-website";
 import { useAppContext } from "@/components/appWrapper";
 import Link from "next/link";
+import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
 
 export default function Navbar() {
   const { userInfo, updateUserInfo, session, setSession } = useAppContext();
