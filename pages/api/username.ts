@@ -4,6 +4,7 @@ import { superTokensNextWrapper } from 'supertokens-node/nextjs'
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { SessionRequest } from "supertokens-node/framework/express";
 import { getUserById } from 'supertokens-node/recipe/thirdpartyemailpassword';
+import { Timestamp } from "firebase/firestore"
 
 export default async function handler(
   req: SessionRequest,
@@ -31,18 +32,20 @@ export default async function handler(
 
   const snapshot = await db.collection("users").where("username", "==", username).get()
 
-  const data = {
+  let data: { [key: string]: any } = {
     username: username,
     email: email,
     self: {},
     average: {},
-    count: 0
+    count: 0,
+    modifiedAt: Timestamp.now()
   }
 
   if (snapshot.empty) {
     if (user.exists) {
       db.collection("users").doc(userId).update(data)
-    } else if (!user.exists) {
+    } else {
+      data.createdAt = Timestamp.now()
       db.collection("users").doc(userId).set(data)
     }
     res.status(200).json({ message: "Username set" })

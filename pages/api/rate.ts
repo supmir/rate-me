@@ -4,6 +4,7 @@ import { superTokensNextWrapper } from 'supertokens-node/nextjs'
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { SessionRequest } from "supertokens-node/framework/express";
 import { Rating, statsList } from '@/types/userInfo';
+import { Timestamp } from 'firebase/firestore';
 
 export default async function handler(
     req: SessionRequest,
@@ -35,12 +36,16 @@ export default async function handler(
         byUserId: userId,
         targetUserId: targetUserId,
         ratings: ratings,
+        createdAt: Timestamp.now()
     }
 
     await db.collection("ratings").add(data)
 
     if (userId === targetUserId) {
-        db.collection("users").doc(userId).update("self", ratings)
+        db.collection("users").doc(userId).update({
+            self: ratings,
+            modifiedAt: Timestamp.now(),
+        })
     } else {
         const count = targetUser.data().count || 0
         let new_average: { [key: string]: number } = {}
@@ -51,7 +56,8 @@ export default async function handler(
         }
         db.collection("users").doc(targetUserId).update({
             average: new_average,
-            count: count + 1
+            count: count + 1,
+            modifiedAt: Timestamp.now(),
         })
 
     }
