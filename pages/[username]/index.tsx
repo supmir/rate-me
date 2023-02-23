@@ -5,13 +5,13 @@ import { share } from "@/lib/site";
 import { UserInfo, userInfoDefault } from "@/types/userInfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, MutableRefObject, useEffect, useRef, useState } from "react";
 export default function UserProfile() {
   const router = useRouter();
   const { username } = router.query;
   const [userInfo, setUserInfo] = useState<UserInfo>(userInfoDefault);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const profileRef = useRef() as MutableRefObject<HTMLInputElement>;
   async function fetchUserInfo() {
     const data = await fetch(
       `/api/publicuserinfo?username=${username?.slice(1)}`
@@ -29,50 +29,75 @@ export default function UserProfile() {
 
   return (
     <Layout>
-      <div className="w-full flex my-4 justify-between">
-        {isLoading && "Loading..."}
-        <div className="text-3xl font-bold text-left">
-          {username}&#39;s profile
+      <div ref={profileRef} className="px-2">
+        <div className="w-full flex my-4 justify-between">
+          <div className="text-3xl font-bold text-left">
+            {username}&#39;s profile
+          </div>
+          {!userInfo.ratings || userInfo.ratings.length === 0 ? (
+            <button
+              className="border border-neutral-100 px-2 py-1 my-auto"
+              onClick={(e) => {
+                const action = share(
+                  "Mirror Rate",
+                  "You should make a Mirror Rate Profile",
+                  "https://mirrorrate.vercel.app/"
+                );
+                e.currentTarget.innerHTML = action;
+              }}
+            >
+              Invite
+            </button>
+          ) : (
+            <Link
+              href={`/${username}/rate`}
+              className="border border-neutral-100 px-2 py-1 my-auto"
+            >
+              <button>Rate!</button>
+            </Link>
+          )}
         </div>
-        {!userInfo.ratings || userInfo.ratings.length === 0 ? (
-          <button
-            className="border border-neutral-100 px-2 py-1 my-auto"
-            onClick={(e) => {
-              const action = share(
-                "Mirror Rate",
-                "You should make a Mirror Rate Profile",
-                "https://mirrorrate.vercel.app/"
-              );
-              e.currentTarget.innerHTML = action;
-            }}
-          >
-            Invite
-          </button>
+        {isLoading && "Loading..."}
+        {(!userInfo.ratings || userInfo.ratings.length === 0) && !isLoading ? (
+          <div className="text-center">
+            {username} does not have an account. Invite them!
+          </div>
         ) : (
-          <Link
-            href={`/${username}/rate`}
-            className="border border-neutral-100 px-2 py-1 my-auto"
-          >
-            <button>Rate!</button>
-          </Link>
+          <Fragment>
+            {userInfo.ratings.map(({ statName, self, average }, i) => {
+              return (
+                <Bar
+                  statName={statName}
+                  self={self}
+                  average={average}
+                  key={i}
+                />
+              );
+            })}
+
+            <div className="flex flex-col py-2">
+              <ShareField
+                message="Share this profile"
+                shareMessage="Check out this Mirror Rate Profile:"
+              />
+            </div>
+          </Fragment>
         )}
       </div>
+
       {(!userInfo.ratings || userInfo.ratings.length === 0) && !isLoading ? (
-        <div className="text-center">
-          {username} does not have an account. Invite them!
-        </div>
+        ""
       ) : (
         <Fragment>
-          {userInfo.ratings.map(({ statName, self, average }, i) => {
-            return (
-              <Bar statName={statName} self={self} average={average} key={i} />
-            );
-          })}
-          <div className="py-3">
-            <ShareField
-              message="Share this profile"
-              shareMessage="Check out this Mirror Rate Profile:"
-            />
+          <div className="w-full flex">
+            <button
+              onClick={() => {
+                profileRef.current.requestFullscreen();
+              }}
+              className="border border-neutral-100 px-2 py-1 mx-auto my-4"
+            >
+              View in fullsreen
+            </button>
           </div>
         </Fragment>
       )}
