@@ -26,7 +26,7 @@ export default function UserProfile() {
   }
 
   useEffect(() => {
-    if (username && !isLoading) {
+    if (username) {
       fetchUserInfo();
     }
   }, [username]);
