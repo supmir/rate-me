@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Fragment, MutableRefObject, useRef, useState } from "react";
 
 import axios, { AxiosError } from "axios";
+import ProfileRate from "@/components/profileRate";
 
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
@@ -39,6 +40,8 @@ export default function Home() {
       }
     }
   }
+
+  console.log(userInfo);
 
   return (
     <Layout>
@@ -93,10 +96,15 @@ export default function Home() {
               >
                 <button>Rate yourself!</button>
               </Link>
+
               <ShareField
                 message="Share your profile to your friends!"
                 shareMessage="Check out my Mirror Rate Profile:"
               />
+              <div className="text-xl font-bold text-center">
+                Your current rating:
+              </div>
+              <ProfileRate userInfo={userInfo} />
             </div>
           )}
         </div>
