@@ -32,13 +32,13 @@ export default function UserProfile() {
   return (
     <Layout>
       <div ref={profileRef} className="px-2">
-        <div className="w-full flex my-4 justify-between">
-          <div className="text-3xl font-bold text-left">
+        <div className="w-full flex my-4 justify-between gap-x-2">
+          <div className="text-2xl font-bold text-left overflow-clip break-words">
             {username}&#39;s profile
           </div>
           {!userInfo.ratings || userInfo.ratings.length === 0 ? (
             <button
-              className="border border-neutral-100 px-2 py-1 my-auto"
+              className="border border-neutral-100 px-2 py-1 my-auto bg-violet-500 min-w-min"
               onClick={(e) => {
                 const action = share(
                   "Mirror Rate",
@@ -53,7 +53,7 @@ export default function UserProfile() {
           ) : (
             <Link
               href={`/${username}/rate`}
-              className="border border-neutral-100 px-2 py-1 my-auto"
+              className="border border-neutral-100 px-2 py-1 my-auto bg-violet-500 min-w-min"
             >
               <button>{session ? "Rate!" : "Login to rate"}</button>
             </Link>
