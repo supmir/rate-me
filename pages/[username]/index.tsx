@@ -32,10 +32,10 @@ export default function UserProfile() {
 
   return (
     <Layout>
-      <div ref={profileRef} className="px-2">
+      <div ref={profileRef}>
         <div className="w-full flex my-4 justify-between gap-x-2">
           <div className="text-2xl font-bold text-left overflow-clip break-words">
-            {username}&#39;s profile
+            {username}&#39;s rating
           </div>
           {!userInfo.ratings || userInfo.ratings.length === 0 ? (
             <button
