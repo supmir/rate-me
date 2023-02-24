@@ -57,7 +57,7 @@ export default function Home() {
                 href={`/auth`}
                 className="text-xl font-bold text-center border px-2 py-1"
               >
-                <button>Sign in!</button>
+                <button>Let&#39;s go!</button>
               </Link>
             </Fragment>
           ) : userInfo.username === "" || !userInfo.username ? (
