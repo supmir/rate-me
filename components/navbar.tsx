@@ -33,7 +33,10 @@ export default function Navbar() {
       <div className="flex my-auto gap-x-2">
         {session ? (
           <Fragment>
-            <Link href="/" className="border border-neutral-100 px-2 py-1">
+            <Link
+              href={`/@${userInfo.username}`}
+              className="border border-neutral-100 px-2 py-1"
+            >
               <div>@{userInfo.username}</div>
             </Link>
             <button
