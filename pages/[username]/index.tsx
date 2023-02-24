@@ -16,6 +16,7 @@ export default function UserProfile() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const profileRef = useRef() as MutableRefObject<HTMLInputElement>;
   async function fetchUserInfo() {
+    setIsLoading(true);
     const data = await fetch(
       `/api/publicuserinfo?username=${username?.slice(1)}`
     );
@@ -25,7 +26,7 @@ export default function UserProfile() {
   }
 
   useEffect(() => {
-    if (username) {
+    if (username && !isLoading) {
       fetchUserInfo();
     }
   }, [username]);
