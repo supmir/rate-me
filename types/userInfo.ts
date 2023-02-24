@@ -24,7 +24,7 @@ export const userInfoDefault = { username: "", ratings: [] }
 export interface AppContextInterface {
     userInfo: UserInfo;
     updateUserInfo: () => void;
-    replaceUserInfo: (userInfo: UserInfo) => void;
+    // replaceUserInfo: (userInfo: UserInfo) => void;
     session: boolean,
     setSession: (session: boolean) => void,
 }
@@ -32,7 +32,7 @@ export interface AppContextInterface {
 export const appContextDefault: AppContextInterface = {
     userInfo: userInfoDefault,
     updateUserInfo: () => { },
-    replaceUserInfo: () => { },
+    // replaceUserInfo: () => { },
     session: false,
     setSession: () => { },
 }

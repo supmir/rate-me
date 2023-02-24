@@ -23,11 +23,12 @@ export function AppWrapper({ children }: Props) {
     userInfo: userInfo,
     updateUserInfo: async () => {
       const data = await fetch("/api/userinfo");
+
       setUserInfo(await data.json());
     },
-    replaceUserInfo: (userInfo: UserInfo) => {
-      setUserInfo(userInfo);
-    },
+    // replaceUserInfo: (userInfo: UserInfo) => {
+    //   setUserInfo(userInfo);
+    // },
     session: session,
     setSession: setSession,
   };
