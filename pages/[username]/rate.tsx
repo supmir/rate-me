@@ -43,9 +43,7 @@ export default function UserRating() {
     const data = await fetch(
       `/api/publicuserinfo?username=${username?.slice(1)}`
     );
-    if (data.ok) {
-      const data_json = await data.json();
-    } else {
+    if (!data.ok) {
       router.push(`/${username}`);
     }
   }
@@ -59,7 +57,7 @@ export default function UserRating() {
   return (
     <SessionAuth>
       <Layout>
-        <div className="grid gap-y-4 select-none">
+        <div className="flex flex-col gap-y-4 select-none w-full">
           <Head>
             <title>{title}</title>
             <meta
@@ -68,7 +66,9 @@ export default function UserRating() {
             />
           </Head>
 
-          <h1 className="text-3xl text-center">Rate {username}</h1>
+          <div className="text-2xl text-center max-w-full overflow-clip break-words">
+            Rate {username}
+          </div>
           <div className="grid gap-y-3">
             {stats.map(({ statName, setValue }, i) => {
               return (
