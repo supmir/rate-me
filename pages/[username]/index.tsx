@@ -1,6 +1,7 @@
 import { useAppContext } from "@/components/appWrapper";
 import Bar from "@/components/bar";
 import Layout from "@/components/layout";
+import ProfileRate from "@/components/profileRate";
 import ShareField from "@/components/shareField";
 import { share } from "@/lib/site";
 import { UserInfo, userInfoDefault } from "@/types/userInfo";
@@ -66,16 +67,7 @@ export default function UserProfile() {
           </div>
         ) : (
           <Fragment>
-            {userInfo.ratings.map(({ statName, self, average }, i) => {
-              return (
-                <Bar
-                  statName={statName}
-                  self={self}
-                  average={average}
-                  key={i}
-                />
-              );
-            })}
+            <ProfileRate userInfo={userInfo} />
 
             <div className="flex flex-col py-2">
               <ShareField
