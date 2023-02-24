@@ -1,16 +1,17 @@
 import { useAppContext } from "@/components/appWrapper";
 import Layout from "@/components/layout";
 import ShareField from "@/components/shareField";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { ArrowPathIcon, CheckIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { MutableRefObject, useRef, useState } from "react";
+import { Fragment, MutableRefObject, useRef, useState } from "react";
 
 import axios, { AxiosError } from "axios";
 
 export default function Home() {
   const ref = useRef() as MutableRefObject<HTMLInputElement>;
   const { userInfo, session, updateUserInfo } = useAppContext();
-  const [usernameMessage, setUsernameMessage] = useState("");
+  const [usernameMessage, setUsernameMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function getUsername() {
     if (ref.current.value === "") {
@@ -42,46 +43,63 @@ export default function Home() {
   return (
     <Layout>
       <div className="flex h-full">
-        {!session ? (
-          <Link
-            href={`/auth`}
-            className="text-3xl font-bold text-center border m-auto px-2 py-1"
-          >
-            <button>Sign in First!</button>
-          </Link>
-        ) : userInfo.username === "" || !userInfo.username ? (
-          <div className="m-auto w-full">
-            <div>Select a username</div>
-            <div className="text-sm text-red-600">{usernameMessage}</div>
-            <div className="flex w-full">
-              <input
-                className="bg-neutral-900 border-neutral-100 border p-2 grow"
-                ref={ref}
-              />
-              <button
-                className="border grid w-12 bg-neutral-100 text-neutral-900"
-                onClick={() => {
+        <div className="m-auto flex flex-col gap-y-2">
+          <div className="text-xl font-bold text-center">
+            Rate yourself, and then others rate you.
+          </div>
+          {!session ? (
+            <Fragment>
+              <div className="text-xl text-center">Sign in to start rating</div>
+              <Link
+                href={`/auth`}
+                className="text-xl font-bold text-center border px-2 py-1"
+              >
+                <button>Sign in!</button>
+              </Link>
+            </Fragment>
+          ) : userInfo.username === "" || !userInfo.username ? (
+            <div className="">
+              <div>Select a username</div>
+              <div className="text-sm text-red-600">{usernameMessage}</div>
+              <form
+                className="flex w-full"
+                onSubmit={(e) => {
+                  setIsLoading(true);
+                  e.preventDefault();
                   getUsername();
                 }}
               >
-                <CheckIcon className="w-8 h-8 m-auto" />
-              </button>
+                <input
+                  className="bg-neutral-900 border-neutral-100 border p-2 grow"
+                  ref={ref}
+                />
+                <button
+                  type="submit"
+                  className="border grid w-12 bg-neutral-100 text-neutral-900"
+                >
+                  {isLoading ? (
+                    <ArrowPathIcon className="w-8 h-8 m-auto animate-spin" />
+                  ) : (
+                    <CheckIcon className="w-8 h-8 m-auto" />
+                  )}
+                </button>
+              </form>
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-col w-full gap-y-5 m-auto">
-            <Link
-              href={`/@${userInfo.username}`}
-              className="text-3xl font-bold text-center border px-2 py-1 mx-auto"
-            >
-              <button>Rate yourself!</button>
-            </Link>
-            <ShareField
-              message="Share your profile to your friends!"
-              shareMessage="Check out my Mirror Rate Profile:"
-            />
-          </div>
-        )}
+          ) : (
+            <div className="flex flex-col w-full gap-y-5 m-auto">
+              <Link
+                href={`/@${userInfo.username}`}
+                className="text-3xl font-bold text-center border px-2 py-1 mx-auto"
+              >
+                <button>Rate yourself!</button>
+              </Link>
+              <ShareField
+                message="Share your profile to your friends!"
+                shareMessage="Check out my Mirror Rate Profile:"
+              />
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );
