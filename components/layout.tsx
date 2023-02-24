@@ -46,7 +46,7 @@ export default function Layout(props: any) {
         </div>
         {/* <div className="text-center p-4 bg-black min-h-12">
           <span className="my-auto">
-            I'm a solo developer, if you like what you see,{" "}
+            I&#39;m a solo developer, if you like what you see,{" "}
           </span>
           <span>
             <Link
