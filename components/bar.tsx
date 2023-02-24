@@ -10,7 +10,7 @@ export default function Bar(props: {
     <div className="grid gap-y-1">
       <div className="mx-auto">{statName}</div>
       <div className="flex gap-x-1 grow my-auto">
-        <div className="w-12 text-right my-auto text-xs">Self</div>
+        <div className="w-12 text-left my-auto text-xs">Self</div>
         {values.map((v, i) => {
           return (
             <div
@@ -26,7 +26,7 @@ export default function Bar(props: {
         </div>
       </div>
       <div className="flex gap-x-1 grow my-auto">
-        <div className="w-12 text-right my-auto text-xs">Others</div>
+        <div className="w-12 text-left my-auto text-xs">Others</div>
         {values.map((v, i) => {
           return (
             <div
