@@ -41,8 +41,6 @@ export default function Home() {
     }
   }
 
-  console.log(userInfo);
-
   return (
     <Layout>
       <div className="flex h-full">
