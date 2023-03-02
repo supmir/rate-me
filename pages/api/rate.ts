@@ -21,7 +21,7 @@ export default async function handler(
         )
 
         let userId = req.session!.getUserId();
-        const payload = JSON.parse(req.body)
+        const payload = req.body
         const snapshot = await db.collection("users").where("username_lowercase", "==", payload.targetUser.toLowerCase()).get()
         const targetUser = snapshot.docs[0]
         const targetUserId = targetUser.id
@@ -63,7 +63,8 @@ export default async function handler(
         }
 
         res.status(200).json({ "message": "Rating received" })
-    } catch {
+    } catch (e) {
+        console.log(e)
         res.status(500).json({ "message": "An error has occured" })
 
     }
