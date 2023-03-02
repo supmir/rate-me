@@ -4,6 +4,12 @@ import { superTokensNextWrapper } from 'supertokens-node/nextjs'
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { SessionRequest } from "supertokens-node/framework/express";
 
+import supertokens from "supertokens-node";
+import { backendConfig } from "@/config/backendConfig";
+// import NextCors from "nextjs-cors";
+
+supertokens.init(backendConfig());
+
 export default async function handler(
     req: SessionRequest,
     res: any

@@ -6,6 +6,12 @@ import { SessionRequest } from "supertokens-node/framework/express";
 import { Rating, statsList } from '@/types/userInfo';
 import { Timestamp } from 'firebase/firestore';
 
+import supertokens from "supertokens-node";
+import { backendConfig } from "@/config/backendConfig";
+// import NextCors from "nextjs-cors";
+
+supertokens.init(backendConfig());
+
 export default async function handler(
     req: SessionRequest,
     res: any
