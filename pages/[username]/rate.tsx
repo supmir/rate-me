@@ -42,6 +42,7 @@ export default function UserRating() {
       window.location.href = `/${username}`;
     } else {
       setMessage("An error has occured please try again later");
+      // setMessage(resp.data);
       setLoading(false);
     }
   }
@@ -87,18 +88,21 @@ export default function UserRating() {
               );
             })}
           </div>
-          <button
-            className="border border-neutral-100"
-            onClick={() => {
-              rate();
-            }}
-          >
-            {loading ? (
-              <ArrowPathIcon className="w-8 h-8 m-auto animate-spin" />
-            ) : (
-              "RATE!"
-            )}
-          </button>
+          <div className="flex flex-col">
+            <div className="text-sm text-red-600 text-center">{message}</div>
+            <button
+              className="border border-neutral-100"
+              onClick={() => {
+                rate();
+              }}
+            >
+              {loading ? (
+                <ArrowPathIcon className="w-8 h-8 m-auto animate-spin" />
+              ) : (
+                "RATE!"
+              )}
+            </button>
+          </div>
         </div>
       </Layout>
     </SessionAuth>
