@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Script from "next/script";
 import Navbar from "./navbar";
 
 export default function Layout(props: any) {
@@ -34,11 +35,11 @@ export default function Layout(props: any) {
         />
         <link rel="manifest" href="/site.webmanifest" />
 
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6871496328627568"
           crossOrigin="anonymous"
-        ></script>
+        ></Script>
       </Head>
       <div className="w-full h-full flex flex-col">
         <div className="p-2 w-full max-w-2xl mx-auto grow">
