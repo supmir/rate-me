@@ -1,6 +1,8 @@
 import Layout from "@/components/layout";
 import Slider from "@/components/slider";
 import { statsList } from "@/types/userInfo";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,7 +14,8 @@ export default function UserRating() {
 
   const title = `Rate ${username}`;
   const [values, setValues] = useState<{ [key: string]: number }>({});
-
+  const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   function updateValue(statName: string, new_value: number) {
     setValues({ ...values, [statName]: new_value });
   }
@@ -27,17 +30,20 @@ export default function UserRating() {
   });
 
   async function rate() {
+    setLoading(true);
     const payload = {
       targetUser: username?.slice(1),
       rating: statsList.map((statName) => {
         return { statName: statName, value: values[statName] || 0 };
       }),
     };
-    await fetch("/api/rate", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-    window.location.href = `/${username}`;
+    const resp = await axios.post("/api/rate", payload);
+    if (resp.status === 200) {
+      window.location.href = `/${username}`;
+    } else {
+      setMessage("An error has occured please try again later");
+      setLoading(false);
+    }
   }
   async function fetchUserInfo() {
     const data = await fetch(
@@ -87,7 +93,11 @@ export default function UserRating() {
               rate();
             }}
           >
-            RATE!
+            {loading ? (
+              <ArrowPathIcon className="w-8 h-8 m-auto animate-spin" />
+            ) : (
+              "RATE!"
+            )}
           </button>
         </div>
       </Layout>
