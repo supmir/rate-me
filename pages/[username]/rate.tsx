@@ -42,7 +42,7 @@ export default function UserRating() {
       window.location.href = `/${username}`;
     } else {
       setMessage("An error has occured please try again later");
-      // setMessage(resp.data);
+      setMessage(resp.data);
       setLoading(false);
     }
   }
